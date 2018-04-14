@@ -1,10 +1,6 @@
-import java.util.Objects;
-
-public class Franc {
-    private int amount;
-
+public class Franc extends Money{
     Franc(int amount) {
-        this.amount = amount;
+        super(amount);
     }
 
     @Override
@@ -13,11 +9,6 @@ public class Franc {
         if (o == null || getClass() != o.getClass()) return false;
         Franc dollar = (Franc) o;
         return amount == dollar.amount;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(amount);
     }
 
     public Franc plus(Franc addend) {
