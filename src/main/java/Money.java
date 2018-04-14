@@ -1,12 +1,23 @@
 import java.util.Objects;
 
 public class Money {
+    private static final String FRANC_CURRENCY = "CHF";
+    private static final String DOLLAR_CURRENCY = "USD";
+
     private int amount;
     private String currency;
 
-    Money(int amount, String currency) {
+    private Money(int amount, String currency) {
         this.amount = amount;
         this.currency = currency;
+    }
+
+    static Money franc(int amount) {
+        return new Money(amount, FRANC_CURRENCY);
+    }
+
+    static Money dollar(int amount) {
+        return new Money(amount, DOLLAR_CURRENCY);
     }
 
     @Override
@@ -16,11 +27,11 @@ public class Money {
 
     @Override
     public boolean equals(Object o) {
-        if (o != null && o instanceof Money) {
-            Money money = (Money) o;
-            return amount == money.amount && currency.equals(money.currency);
-        }
-        return false;
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Money money = (Money) o;
+        return amount == money.amount &&
+                Objects.equals(currency, money.currency);
     }
 
     public Money plus(Money addend) {
