@@ -27,4 +27,16 @@ public class DollarTest {
         Dollar two = new Dollar(2);
         assertEquals(one.plus(two), new Dollar(3));
     }
+
+    @Test
+    public void test_one_dollar_multiply_two_should_equal_two_dollar() {
+        Dollar one = new Dollar(1);
+        assertEquals(one.multiply(2), new Dollar(2));
+    }
+
+    @Test
+    public void test_two_dollar_multiply_two_should_equal_four_dollar() {
+        Dollar two = new Dollar(2);
+        assertEquals(two.multiply(2), new Dollar(4));
+    }
 }

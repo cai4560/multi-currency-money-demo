@@ -23,4 +23,8 @@ public class Dollar {
     public Dollar plus(Dollar addend) {
         return new Dollar(this.amount + addend.amount);
     }
+
+    public Dollar multiply(int multiplier) {
+        return new Dollar(this.amount * multiplier);
+    }
 }
