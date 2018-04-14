@@ -1,6 +1,6 @@
 public class Franc extends Money{
     Franc(int amount) {
-        super(amount);
+        super(amount, "CHF");
     }
 
     @Override

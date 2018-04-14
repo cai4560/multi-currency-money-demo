@@ -2,9 +2,11 @@ import java.util.Objects;
 
 public class Money {
     protected int amount;
+    private String currency;
 
-    public Money(int amount) {
+    Money(int amount, String currency) {
         this.amount = amount;
+        this.currency = currency;
     }
 
     @Override
