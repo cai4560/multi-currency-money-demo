@@ -20,14 +20,14 @@ public class FrancTest {
     public void test_one_franc_add_one_franc_should_equal_two_franc() {
         Money one = Money.franc(1);
         Money anotherOne = Money.franc(1);
-        assertEquals(one.plus(anotherOne), Money.franc(2));
+        assertEquals(one.plus(anotherOne).reduce(bank, Money.FRANC_CURRENCY), Money.franc(2));
     }
 
     @Test
     public void test_one_franc_add_two_franc_should_equal_three_franc() {
         Money one = Money.franc(1);
         Money two = Money.franc(2);
-        assertEquals(one.plus(two), Money.franc(3));
+        assertEquals(one.plus(two).reduce(bank, Money.FRANC_CURRENCY), Money.franc(3));
     }
 
     @Test
@@ -45,24 +45,24 @@ public class FrancTest {
     @Test
     public void test_one_franc_reduce_one_franc() {
         Money oneFranc = Money.franc(1);
-        assertEquals(oneFranc, bank.reduce(oneFranc, Money.FRANC_CURRENCY));
+        assertEquals(oneFranc, oneFranc.reduce(bank, Money.FRANC_CURRENCY));
     }
 
     @Test
     public void test_two_franc_reduce_two_franc() {
         Money twoFranc = Money.franc(2);
-        assertEquals(twoFranc, bank.reduce(twoFranc, Money.FRANC_CURRENCY));
+        assertEquals(twoFranc, twoFranc.reduce(bank, Money.FRANC_CURRENCY));
     }
 
     @Test
     public void test_two_franc_reduce_one_dollar() {
         Money twoFranc = Money.franc(2);
-        assertEquals(Money.dollar(1), bank.reduce(twoFranc, Money.DOLLAR_CURRENCY));
+        assertEquals(Money.dollar(1), twoFranc.reduce(bank, Money.DOLLAR_CURRENCY));
     }
 
     @Test
     public void test_add_two_franc_one_dollar_equals_four_franc() {
-        Sum sum = new Sum(Money.franc(2), Money.dollar(1));
-        assertEquals(Money.franc(4), bank.reduce(sum, Money.FRANC_CURRENCY));
+        Expression sum = new Sum(Money.franc(2), Money.dollar(1));
+        assertEquals(Money.franc(4), sum.reduce(bank, Money.FRANC_CURRENCY));
     }
 }

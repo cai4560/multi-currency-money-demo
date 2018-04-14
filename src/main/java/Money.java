@@ -1,7 +1,7 @@
 import java.math.BigDecimal;
 import java.util.Objects;
 
-public class Money {
+public class Money implements Expression {
     public static final String FRANC_CURRENCY = "CHF";
     public static final String DOLLAR_CURRENCY = "USD";
 
@@ -35,11 +35,11 @@ public class Money {
                 Objects.equals(currency, money.currency);
     }
 
-    public Money plus(Money addend) {
-        return new Money(this.amount.add(addend.amount), this.currency);
+    public Expression plus(Expression addend) {
+        return new Sum(this, addend);
     }
 
-    public Money multiply(int multiplier) {
+    public Expression multiply(int multiplier) {
         return new Money(this.amount.multiply(new BigDecimal(multiplier)), this.currency);
     }
 
@@ -47,7 +47,9 @@ public class Money {
         return amount;
     }
 
-    public String getCurrency() {
-        return currency;
+    @Override
+    public Money reduce(Bank bank, String toCurrency) {
+        BigDecimal rate = bank.getRates(currency, toCurrency);
+        return new Money(amount.multiply(rate), toCurrency);
     }
 }
