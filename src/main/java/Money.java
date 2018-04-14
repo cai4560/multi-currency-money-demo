@@ -1,23 +1,24 @@
+import java.math.BigDecimal;
 import java.util.Objects;
 
 public class Money {
-    private static final String FRANC_CURRENCY = "CHF";
-    private static final String DOLLAR_CURRENCY = "USD";
+    public static final String FRANC_CURRENCY = "CHF";
+    public static final String DOLLAR_CURRENCY = "USD";
 
-    private int amount;
+    private BigDecimal amount;
     private String currency;
 
-    private Money(int amount, String currency) {
+    Money(BigDecimal amount, String currency) {
         this.amount = amount;
         this.currency = currency;
     }
 
     static Money franc(int amount) {
-        return new Money(amount, FRANC_CURRENCY);
+        return new Money(new BigDecimal(amount), FRANC_CURRENCY);
     }
 
     static Money dollar(int amount) {
-        return new Money(amount, DOLLAR_CURRENCY);
+        return new Money(new BigDecimal(amount), DOLLAR_CURRENCY);
     }
 
     @Override
@@ -30,15 +31,23 @@ public class Money {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Money money = (Money) o;
-        return amount == money.amount &&
+        return amount.compareTo(money.amount) == 0 &&
                 Objects.equals(currency, money.currency);
     }
 
     public Money plus(Money addend) {
-        return new Money(this.amount + addend.amount, this.currency);
+        return new Money(this.amount.add(addend.amount), this.currency);
     }
 
     public Money multiply(int multiplier) {
-        return new Money(this.amount * multiplier, this.currency);
+        return new Money(this.amount.multiply(new BigDecimal(multiplier)), this.currency);
+    }
+
+    public BigDecimal getAmount() {
+        return amount;
+    }
+
+    public String getCurrency() {
+        return currency;
     }
 }
