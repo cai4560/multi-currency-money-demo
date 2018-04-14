@@ -59,4 +59,10 @@ public class FrancTest {
         Money twoFranc = Money.franc(2);
         assertEquals(Money.dollar(1), bank.reduce(twoFranc, Money.DOLLAR_CURRENCY));
     }
+
+    @Test
+    public void test_add_two_franc_one_dollar_equals_four_franc() {
+        Sum sum = new Sum(Money.franc(2), Money.dollar(1));
+        assertEquals(Money.franc(4), bank.reduce(sum, Money.FRANC_CURRENCY));
+    }
 }

@@ -9,6 +9,10 @@ public class Bank {
         return new Money(money.getAmount().multiply(rate), toCurrency);
     }
 
+    public Money reduce(Sum sum, String toCurrency) {
+        return sum.reduce(this, toCurrency);
+    }
+
     private BigDecimal getRates(String from, String to) {
         if (Money.DOLLAR_CURRENCY.equals(from) && Money.FRANC_CURRENCY.equals(to)) {
             return USD_TO_CHF;
